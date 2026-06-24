@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piscok Kota Jalur - Rekomendasi Menu</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="cart.css">
+
+    <style>
+        /* === RESET & GLOBAL CSS === */
+        :root {
+            --bg-color: #111111;
+            --primary-yellow: #facc15;
+            --primary-red: #dc2626;
+            --text-light: #f3f4f6;
+            --text-gray: #9ca3af;
+            --card-bg: #1a1a1a;
+            --border-color: #333333;
+            --font-main: 'Poppins', sans-serif;
+            --font-accent: 'Permanent Marker', cursive;
+            --transition: all 0.3s ease-in-out;
+            --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-light);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+        img { max-width: 100%; height: auto; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* === TOMBOL GLOBAL === */
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 10px 24px; border-radius: 50px; font-weight: 600;
+            cursor: pointer; border: 2px solid transparent; font-size: 14px; gap: 8px;
+        }
+        .btn-red { background-color: var(--primary-red); color: white; }
+        .btn-red:hover { background-color: #b91c1c; transform: translateY(-2px); }
+        .btn-yellow { background-color: var(--primary-yellow); color: var(--bg-color); }
+        .btn-yellow:hover { background-color: #eab308; transform: translateY(-2px); }
+        .btn-outline-yellow { background-color: transparent; border-color: var(--primary-yellow); color: var(--primary-yellow); }
+        .btn-outline-yellow:hover { background-color: var(--primary-yellow); color: var(--bg-color); }
+
+        /* === NAVBAR === */
+        header {
+            position: fixed; top: 0; width: 100%; background-color: rgba(17, 17, 17, 0.95);
+            backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid var(--border-color);
+        }
+        .navbar { display: flex; justify-content: space-between; align-items: center; height: 80px; }
+        .logo { font-family: var(--font-accent); font-size: 1.8rem; color: var(--primary-yellow); line-height: 1; }
+        .logo span { display: block; font-family: var(--font-main); font-size: 0.8rem; color: var(--text-light); letter-spacing: 1px; font-weight: 700; text-transform: uppercase; }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { font-size: 14px; font-weight: 500; text-transform: uppercase; }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary-yellow); }
+
+        /* === HERO SECTION === */
+        #hero { padding: 140px 0 60px; background-size: cover; background-position: center; }
+        .hero-content { display: flex; align-items: center; justify-content: space-between; gap: 40px; }
+        .hero-text { flex: 1; }
+        .hero-title-brush { font-family: var(--font-accent); font-size: 5rem; color: var(--primary-yellow); line-height: 1; margin-bottom: 10px; }
+        .hero-subtitle { font-size: 2rem; font-weight: 800; margin-bottom: 20px; color: var(--primary-red); font-style: italic;}
+        .hero-p { color: var(--text-gray); margin-bottom: 30px; font-size: 1rem; }
+        .hero-buttons { display: flex; gap: 15px; margin-bottom: 40px; }
+        
+        .hero-features { display: flex; gap: 40px; }
+        .feature-item { text-align: center; color: var(--text-gray); font-size: 12px; font-weight: 600; }
+        .feature-item img { display: block; margin: 0 auto 10px; width: 45px; height: 45px; object-fit: contain;}
+        
+        .hero-image-wrapper { flex: 1; text-align: right; }
+        .hero-image-wrapper img { max-width: 90%; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); border: 2px solid #333;}
+
+        /* === REKOMENDASI PISCOK === */
+        #rekomendasi { padding: 80px 0; }
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-subtitle { font-size: 14px; font-weight: 600; text-transform: uppercase; color: var(--primary-red); margin-bottom: 5px; }
+        .section-title { font-size: 32px; font-weight: 800; text-transform: uppercase; }
+        .section-title span { color: var(--primary-yellow); }
+
+        .recommendation-slider-container { position: relative; }
+        .swiper-button-prev, .swiper-button-next {
+            background-color: var(--primary-yellow); width: 40px; height: 40px;
+            border-radius: 50%; color: var(--bg-color); z-index: 10;
+        }
+        .swiper-button-prev { left: -20px; } .swiper-button-next { right: -20px; }
+        .swiper-button-prev:after, .swiper-button-next:after { font-size: 16px; font-weight: 900; }
+
+        .menu-card {
+            background-color: var(--card-bg); border-radius: 15px; overflow: hidden;
+            border: 1px solid var(--border-color); display: flex; flex-direction: column;
+            height: 100%; position: relative; transition: var(--transition);
+        }
+        .menu-card:hover { transform: translateY(-5px); border-color: var(--primary-yellow); }
+        .card-badge {
+            position: absolute; top: 10px; left: 10px; background-color: var(--primary-yellow);
+            color: var(--bg-color); padding: 4px 10px; border-radius: 50px; font-size: 10px; font-weight: 800; z-index: 2;
+        }
+        .card-image-wrapper { width: 100%; height: 200px; overflow: hidden; }
+        .card-image-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+        .card-content { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
+        .card-title { font-size: 15px; font-weight: 700; color: white; margin-bottom: 8px; }
+        .card-desc { font-size: 12px; color: var(--text-gray); margin-bottom: 15px; flex-grow: 1; }
+        .card-footer { display: flex; justify-content: space-between; align-items: center; }
+        .card-price { font-size: 16px; font-weight: 800; color: var(--primary-red); }
+
+        /* === INFO PANEL === */
+        #info { padding: 40px 0; border-top: 1px solid #222; border-bottom: 1px solid #222; margin-top: 40px;}
+        .info-panel { display: flex; justify-content: space-between; align-items: center; gap: 20px;}
+        .info-item { display: flex; align-items: center; gap: 15px; }
+        .info-item img { width: 40px; height: 40px; object-fit: contain;}
+        .info-item h4 { font-size: 15px; color: var(--primary-yellow); font-weight: 700;}
+        .info-item p { font-size: 12px; color: var(--text-gray); }
+        .order-title { font-size: 20px; font-weight: 800; color: var(--primary-red); text-align: right;}
+        .order-title span { color: var(--primary-yellow); display: block;}
+
+        /* === FOOTER === */
+        footer { padding: 60px 0; background-color: #0a0a0a; }
+        .footer-content { display: grid; grid-template-columns: 2fr 1fr 1.5fr 1fr; gap: 40px; }
+        .footer-logo-wrapper .logo { font-size: 24px; margin-bottom: 10px; }
+        .footer-p { font-size: 12px; color: var(--text-gray); margin-bottom: 20px; }
+        .footer-socials a { color: var(--primary-yellow); font-size: 18px; margin-right: 15px;}
+        .footer-heading { font-size: 14px; color: var(--primary-yellow); margin-bottom: 15px; }
+        .footer-links li { margin-bottom: 8px; font-size: 12px; color: var(--text-gray);}
+        .footer-contact-item { font-size: 12px; color: var(--text-gray); margin-bottom: 10px; }
+        .footer-contact-item i { color: var(--primary-yellow); margin-right: 8px;}
+        .copyright { text-align: center; color: var(--text-gray); font-size: 12px; margin-top: 40px; border-top: 1px solid #1a1a1a; padding-top: 20px; }
+
+        /* === CSS SIDEBAR KERANJANG (SUDAH DIJAHIT KE ATAS) === */
+        .cart-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.7); z-index: 1999;
+            opacity: 0; visibility: hidden; transition: all 0.3s ease;
+        }
+        .cart-overlay.active { opacity: 1; visibility: visible; }
+
+        .cart-sidebar {
+            position: fixed; top: 0; right: -400px; width: 100%; max-width: 380px;
+            height: 100vh; background-color: #1a1a1a; z-index: 2000;
+            display: flex; flex-direction: column; transition: right 0.4s ease;
+            box-shadow: -5px 0 20px rgba(0,0,0,0.8); border-left: 2px solid var(--primary-yellow);
+        }
+        .cart-sidebar.active { right: 0; }
+        .cart-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; background-color: #111; border-bottom: 1px solid #333;}
+        .cart-header h3 { font-family: var(--font-accent); color: var(--primary-yellow); font-size: 1.5rem; }
+        .close-cart { background: transparent; border: none; color: white; font-size: 2rem; cursor: pointer; }
+        .cart-items { flex-grow: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 15px; }
+        .cart-item { display: flex; gap: 15px; align-items: center; background: #222; padding: 10px; border-radius: 10px; border: 1px solid #333; }
+        .cart-item-img { width: 60px; height: 60px; object-fit: cover; border-radius: 8px; }
+        .cart-item-info { flex-grow: 1; }
+        .cart-item-title { font-size: 0.85rem; font-weight: 700; color: white; }
+        .cart-item-price { color: var(--primary-red); font-weight: 800; font-size: 0.85rem; }
+        .qty-controls { display: flex; align-items: center; gap: 10px; margin-top: 5px; }
+        .qty-btn { background: #333; color: white; border: none; width: 22px; height: 22px; border-radius: 4px; cursor: pointer; font-weight: bold;}
+        .remove-item { background: transparent; border: none; color: #777; cursor: pointer; font-size: 1.1rem; }
+        .cart-footer { padding: 20px; background-color: #111; border-top: 1px solid #333; }
+        .cart-total { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-weight: bold;}
+        .cart-total span:last-child { font-size: 1.4rem; color: var(--primary-red); font-family: var(--font-accent);}
+        .btn-checkout {
+            width: 100%; background-color: var(--primary-yellow); color: #111;
+            padding: 15px; border: none; border-radius: 10px; font-weight: 800; font-size: 1rem; cursor: pointer;
+        }
+        .floating-cart {
+            position: fixed; bottom: 30px; right: 30px; background: var(--primary-red); color: white;
+            width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; cursor: pointer; box-shadow: 0 10px 20px rgba(0,0,0,0.6); z-index: 1000; border: 2px solid white;
+        }
+        .cart-badge {
+            position: absolute; top: -5px; right: -5px; background: var(--primary-yellow); color: #111;
+            font-size: 0.8rem; font-weight: 900; width: 22px; height: 22px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .btn-add-cart {
+            background: transparent; border: 2px solid var(--primary-yellow); color: var(--primary-yellow);
+            padding: 6px 12px; border-radius: 5px; font-size: 0.8rem; font-weight: 700; cursor: pointer; width: 100%; margin-top: 10px;
+        }
+        .btn-add-cart:hover { background: var(--primary-yellow); color: #111; }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <div class="container navbar">
+            <div class="logo">PISCOK<span>KOTA JALUR</span></div>
+            <ul class="nav-links">
+                <li><a href="#" class="active">BERANDA</a></li>
+                <li><a href="tentang.html">TENTANG KAMI</a></li>
+                <li><a href="menu.html">MENU</a></li>
+                <li><a href="promo.html">PROMO</a></li>
+                <li><a href="kontak.html">KONTAK</a></li>
+            </ul>
+            <!-- Tombol Pesan Sekarang diubah memicu Keranjang Belanja -->
+            <button class="btn btn-red" onclick="toggleCart()"><i class="fas fa-shopping-cart"></i> PESAN SEKARANG</button>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section id="hero">
+            <div class="container hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title-brush">PISCOK</h1>
+                    <h2 class="hero-subtitle">LEZAT, MANIS, BIKIN NAGIH!</h2>
+                    <p class="hero-p">Piscok (Pisang Coklat) cemilan favorit semua orang. Renyah di luar, lumer di dalam!</p>
+                    
+                    <div class="hero-buttons">
+                        <a href="#rekomendasi" class="btn btn-yellow btn-liat-menu">LIHAT MENU</a>
+                        <button onclick="toggleCart()" class="btn btn-outline-yellow btn-pesan-sekarang"><i class="fab fa-whatsapp"></i> PESAN SEKARANG</button>
+                    </div>
+                    
+                    <div class="hero-features">
+                        <!-- SEMUA EKSTENSI DIUBAH JADI .jpg -->
+                        <div class="feature-item">
+                            <img src="images/icon-banana.jpeg" alt="Pisang"> <p>Pisang Pilihan Berkualitas</p>
+                        </div>
+                        <div class="feature-item">
+                            <img src="images/icon-box.jpeg" alt="Box"> <p>Coklat Premium Lumer</p>
+                        </div>
+                        <div class="feature-item">
+                            <img src="images/icon-thumbs.jpeg" alt="Renyah"> <p>Renyah & Nikmat</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image-wrapper">
+                    <img src="images/hero-image.png" alt="Piscok Lumer"> 
+                </div>
+            </div>
+        </section>
+
+        <!-- REKOMENDASI PISCOK -->
+        <section id="rekomendasi">
+            <div class="container">
+                <div class="section-header">
+                    <p class="section-subtitle">MENU FAVORIT</p>
+                    <h2 class="section-title">REKOMENDASI <span>PISCOK</span></h2>
+                </div>
+
+                <div class="recommendation-slider-container">
+                    <div class="swiper-button-prev recommendation-prev"><i class="fas fa-chevron-left"></i></div>
+                    <div class="swiper-button-next recommendation-next"><i class="fas fa-chevron-right"></i></div>
+                    
+                    <div class="swiper-container recommendation-slider">
+                        <div class="swiper-wrapper">
+                            
+                            <!-- Slide 1 -->
+                            <div class="swiper-slide">
+                                <div class="menu-card">
+                                    <span class="card-badge">BEST SELLER</span>
+                                    <div class="card-image-wrapper"><img src="images/menu-keju-coklat.png" alt="Keju Coklat"></div>
+                                    <div class="card-content">
+                                        <h3 class="card-title">PISCOK KEJU COKLAT</h3>
+                                        <p class="card-desc">Pisang goreng renyah dengan coklat lumer & taburan keju.</p>
+                                        <div class="card-footer">
+                                            <span class="card-price">Rp 15.000</span>
+                                        </div>
+                                        <button class="btn-add-cart" onclick="addToCart('Piscok Keju Coklat', 15000, 'images/menu-keju-coklat.png')"><i class="fas fa-plus"></i> KERANJANG</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Slide 2 -->
+                            <div class="swiper-slide">
+                                <div class="menu-card">
+                                    <div class="card-image-wrapper"><img src="images/menu-coklat.png" alt="Coklat"></div>
+                                    <div class="card-content">
+                                        <h3 class="card-title">PISCOK COKLAT</h3>
+                                        <p class="card-desc">Pisang goreng dengan coklat premium yang lumer.</p>
+                                        <div class="card-footer">
+                                            <span class="card-price">Rp 12.000</span>
+                                        </div>
+                                        <button class="btn-add-cart" onclick="addToCart('Piscok Coklat', 12000, 'images/menu-coklat.png')"><i class="fas fa-plus"></i> KERANJANG</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Slide 3 -->
+                            <div class="swiper-slide">
+                                <div class="menu-card">
+                                    <div class="card-image-wrapper"><img src="images/menu-mix.png" alt="Matcha"></div>
+                                    <div class="card-content">
+                                        <h3 class="card-title">PISCOK MATCHA</h3>
+                                        <p class="card-desc">Kombinasi coklat matcha dan keju yang unik.</p>
+                                        <div class="card-footer">
+                                            <span class="card-price">Rp 16.000</span>
+                                        </div>
+                                        <button class="btn-add-cart" onclick="addToCart('Piscok Matcha', 16000, 'images/menu-mix.png')"><i class="fas fa-plus"></i> KERANJANG</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Slide 4 -->
+                            <div class="swiper-slide">
+                                <div class="menu-card">
+                                    <div class="card-image-wrapper"><img src="images/menu-mix.png" alt="Kacang"></div>
+                                    <div class="card-content">
+                                        <h3 class="card-title">PISCOK KACANG COKLAT</h3>
+                                        <p class="card-desc">Pisang goreng dengan coklat dan taburan kacang.</p>
+                                        <div class="card-footer">
+                                            <span class="card-price">Rp 14.000</span>
+                                        </div>
+                                        <button class="btn-add-cart" onclick="addToCart('Piscok Kacang Coklat', 14000, 'images/menu-mix.png')"><i class="fas fa-plus"></i> KERANJANG</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Slide 5 -->
+                            <div class="swiper-slide">
+                                <div class="menu-card">
+                                    <div class="card-image-wrapper"><img src="images/menu-mix.png" alt="Mix"></div>
+                                    <div class="card-content">
+                                        <h3 class="card-title">PISCOK COKLAT KEJU MIX</h3>
+                                        <p class="card-desc">Kombinasi sempurna coklat premium dan keju mix.</p>
+                                        <div class="card-footer">
+                                            <span class="card-price">Rp 16.000</span>
+                                        </div>
+                                        <button class="btn-add-cart" onclick="addToCart('Piscok Mix', 16000, 'images/menu-mix.png')"><i class="fas fa-plus"></i> KERANJANG</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Slide 6 -->
+                            <div class="swiper-slide">
+                                <div class="menu-card">
+                                    <span class="card-badge">BEST SELLER</span>
+                                    <div class="card-image-wrapper"><img src="images/menu-tiramisu-green.png" alt="Tiramisu Green"></div>
+                                    <div class="card-content">
+                                        <h3 class="card-title">TIRAMISU GREEN TEA</h3>
+                                        <p class="card-desc">Saus green tea + cream tiramisu + oreo crumble.</p>
+                                        <div class="card-footer">
+                                            <span class="card-price">Rp 18.000</span>
+                                        </div>
+                                        <button class="btn-add-cart" onclick="addToCart('Tiramisu Green Tea', 18000, 'images/menu-tiramisu-green.png')"><i class="fas fa-plus"></i> KERANJANG</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- INFO PANEL -->
+        <section id="info">
+            <div class="container">
+                <div class="info-panel">
+                    <div class="info-item">
+                        <img src="images/scooter.jpeg" alt="Vespa">
+                        <div>
+                            <h4>GRATIS ONGKIR</h4>
+                            <p>Untuk pemesanan minimal Rp 50.000</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <img src="images/icon-clock.jpeg" alt="Jam"> 
+                        <div>
+                            <h4>BUKA SETIAP HARI</h4>
+                            <p>10.00 - 22.00 WIB</p>
+                        </div>
+                    </div>
+                    <div class="order-panel">
+                        <p class="order-title">PESAN SEKARANG <span>BIKIN HARI LEBIH MANIS!</span></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-col footer-logo-wrapper">
+                <div class="logo">PISCOK<span>KOTA JALUR</span></div>
+                <p class="footer-p">Piscok adalah cemilan lezat yang terbuat dari pisang pilihan, coklat premium, dan balutan tepung yang renyah.</p>
+                <div class="footer-socials">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-heading">MENU</h4>
+                <ul class="footer-links">
+                    <li><a href="menu.html">Piscok Keju Coklat</a></li>
+                    <li><a href="menu.html">Piscok Coklat</a></li>
+                    <li><a href="menu.html">Piscok Matcha</a></li>
+                    <li><a href="menu.html">Piscok Kacang Coklat</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-heading">INFORMASI</h4>
+                <ul class="footer-links">
+                    <li><a href="tentang.html">Tentang Kami</a></li>
+                    <li><a href="kontak.html">Cara Pemesanan</a></li>
+                    <li><a href="promo.html">Promo</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-heading">KONTAK KAMI</h4>
+                <ul class="footer-contact-list">
+                    <li class="footer-contact-item"><i class="fab fa-whatsapp"></i> 0822 8487 2617</li>
+                    <li class="footer-contact-item"><i class="fas fa-phone"></i> 0822 8734 4592</li>
+                    <li class="footer-contact-item"><i class="fab fa-instagram"></i> @piscok.kotajalur</li>
+                </ul>
+            </div>
+        </div>
+        <div class="container copyright">&copy; 2024 Piscok Kota Jalur. All Rights Reserved.</div>
+    </footer>
+
+    <!-- HTML MODAL KERANJANG BELANJA -->
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>KERANJANGKU</h3>
+            <button class="close-cart" onclick="toggleCart()">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItemsContainer"></div>
+        <div class="cart-footer">
+            <div class="cart-total"><span>TOTAL:</span><span id="cartTotalPrice">Rp 0</span></div>
+            <button class="btn-checkout" onclick="checkoutWA()"><i class="fab fa-whatsapp"></i> CHECKOUT WA</button>
+        </div>
+    </div>
+
+    <!-- TOMBOL MELAYANG -->
+    <div class="floating-cart" onclick="toggleCart()">
+        <i class="fas fa-shopping-cart"></i>
+        <div class="cart-badge" id="cartBadgeCount">0</div>
+    </div>
+
+    <!-- SCRIPT SWIPER SLIDER -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const recommendationSlider = new Swiper('.recommendation-slider', {
+                navigation: { nextEl: '.recommendation-next', prevEl: '.recommendation-prev' },
+                spaceBetween: 30, slidesPerView: 1, loop: true, grabCursor: true, speed: 600,
+                breakpoints: {
+                    576: { slidesPerView: 2, spaceBetween: 20 },
+                    768: { slidesPerView: 2, spaceBetween: 30 },
+                    992: { slidesPerView: 3, spaceBetween: 30 },
+                    1200: { slidesPerView: 4, spaceBetween: 30 }
+                }
+            });
+        });
+
+        // SCRIPT KERANJANG BELANJA
+        let cart = JSON.parse(localStorage.getItem('piscokCart')) || [];
+
+        function toggleCart() {
+            document.getElementById('cartSidebar').classList.toggle('active');
+            document.getElementById('cartOverlay').classList.toggle('active');
+            renderCart();
+        }
+
+        function formatRupiah(angka) {
+            return 'Rp ' + angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+
+        function addToCart(name, price, imgUrl) {
+            let existingItem = cart.find(item => item.name === name);
+            if (existingItem) existingItem.qty += 1;
+            else cart.push({ name: name, price: price, qty: 1, img: imgUrl });
+            
+            saveCart(); renderCart();
+            let badge = document.getElementById('cartBadgeCount');
+            badge.style.transform = 'scale(1.5)';
+            setTimeout(() => badge.style.transform = 'scale(1)', 200);
+        }
+
+        function changeQty(index, delta) {
+            cart[index].qty += delta;
+            if (cart[index].qty <= 0) cart.splice(index, 1);
+            saveCart(); renderCart();
+        }
+
+        function removeItem(index) { cart.splice(index, 1); saveCart(); renderCart(); }
+        function saveCart() { localStorage.setItem('piscokCart', JSON.stringify(cart)); }
+
+        function renderCart() {
+            const container = document.getElementById('cartItemsContainer');
+            const totalElement = document.getElementById('cartTotalPrice');
+            const badgeElement = document.getElementById('cartBadgeCount');
+            
+            container.innerHTML = ''; let total = 0; let totalItems = 0;
+
+            if (cart.length === 0) {
+                container.innerHTML = '<div style="text-align:center; color:#888; margin-top:40px;">Keranjang kosong.<br>Pilih piscok di menu favoritmu!</div>';
+            } else {
+                cart.forEach((item, index) => {
+                    total += item.price * item.qty; totalItems += item.qty;
+                    container.innerHTML += `
+                        <div class="cart-item">
+                            <img src="${item.img}" alt="${item.name}" class="cart-item-img">
+                            <div class="cart-item-info">
+                                <div class="cart-item-title">${item.name}</div>
+                                <div class="cart-item-price">${formatRupiah(item.price)}</div>
+                                <div style="display:flex; gap:10px; align-items:center; margin-top:5px;">
+                                    <button class="qty-btn" onclick="changeQty(${index}, -1)">-</button>
+                                    <span>${item.qty}</span>
+                                    <button class="qty-btn" onclick="changeQty(${index}, 1)">+</button>
+                                </div>
+                            </div>
+                            <button class="remove-item" onclick="removeItem(${index})"><i class="fas fa-trash"></i></button>
+                        </div>
+                    `;
+                });
+            }
+            totalElement.innerText = formatRupiah(total);
+            badgeElement.innerText = totalItems;
+        }
+
+        function checkoutWA() {
+            if (cart.length === 0) return alert("Keranjang masih kosong!");
+            let textWA = "*Halo Admin Piscok Kota Jalur, saya mau order:*\n\n";
+            let total = 0;
+            cart.forEach((item, i) => {
+                let sub = item.price * item.qty; total += sub;
+                textWA += `${i + 1}. ${item.name} (${item.qty}x) = ${formatRupiah(sub)}\n`;
+            });
+            textWA += `\n*TOTAL: ${formatRupiah(total)}*\n\nMohon dibantu rekap ya!`;
+            window.open(`https://wa.me/6282284872617?text=${encodeURIComponent(textWA)}`, '_blank');
+        }
+
+        document.addEventListener("DOMContentLoaded", renderCart);
+    </script>
+</body>
+</html>

@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promo - Piscok Kota Jalur</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Caveat:wght@700&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="cart.css">
+    
+    <style>
+        /* === VARIABEL WARNA & FONT === */
+        :root {
+            --bg-dark: #111111;
+            --bg-card: #1a1a1a;
+            --primary-yellow: #FACC15;
+            --primary-red: #EF4444;
+            --primary-pink: #ec4899; /* Pink khusus strawberry */
+            --text-light: #F3F4F6;
+            --text-gray: #9CA3AF;
+            --font-main: 'Poppins', sans-serif;
+            --font-accent: 'Permanent Marker', cursive;
+            --font-hand: 'Caveat', cursive; /* Font tulisan tangan */
+        }
+
+        /* === RESET & GLOBAL === */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at top, #1a1a1a 0%, #111 50%);
+        }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; height: auto; display: block; }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* === NAVBAR === */
+        header {
+            position: fixed; top: 0; width: 100%;
+            background-color: rgba(17, 17, 17, 0.95);
+            backdrop-filter: blur(10px); z-index: 1000;
+            border-bottom: 1px solid #333;
+        }
+        .navbar { display: flex; justify-content: space-between; align-items: center; height: 80px; }
+        .logo { font-family: var(--font-accent); font-size: 1.8rem; color: var(--primary-yellow); line-height: 1; }
+        .logo span { display: block; font-family: var(--font-main); font-size: 0.8rem; color: var(--text-light); letter-spacing: 1px; font-weight: 700; text-transform: uppercase; }
+        .nav-links { display: flex; gap: 30px; list-style: none; }
+        .nav-links a { font-size: 0.9rem; font-weight: 600; transition: color 0.3s; text-transform: uppercase; }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary-yellow); }
+        .btn-pesan {
+            background-color: var(--primary-red); color: white; padding: 10px 20px;
+            border-radius: 5px; font-weight: 600; font-size: 0.9rem; border: none; cursor: pointer;
+        }
+
+        /* === HEADER PROMO TITLE === */
+        .promo-header-section {
+            padding-top: 140px;
+            padding-bottom: 50px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .promo-title-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .promo-title-main {
+            font-family: var(--font-accent);
+            font-size: 6rem;
+            color: var(--primary-yellow);
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+        /* Garis aksen di samping tulisan PROMO */
+        .promo-title-main::before, .promo-title-main::after {
+            content: '';
+            width: 40px;
+            height: 5px;
+            background-color: var(--primary-yellow);
+            border-radius: 5px;
+            display: inline-block;
+            transform: rotate(-15deg);
+        }
+        .promo-title-main::after { transform: rotate(15deg); }
+
+        /* Coretan Kuas Merah untuk Subtitle */
+        .promo-subtitle {
+            font-size: 1.8rem;
+            font-weight: 900;
+            font-style: italic;
+            color: white;
+            position: relative;
+            display: inline-block;
+            z-index: 1;
+            padding: 5px 30px;
+            margin-bottom: 10px;
+        }
+        .promo-subtitle::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--primary-red);
+            z-index: -1;
+            transform: skewX(-15deg);
+            border-radius: 5px;
+            /* Efek kasaran kuas tepi */
+            clip-path: polygon(2% 0, 98% 5%, 100% 95%, 0 100%);
+        }
+
+        .promo-tagline {
+            font-size: 1.2rem; font-weight: 700; font-style: italic;
+            color: white;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+        }
+        .promo-tagline span { color: var(--primary-red); }
+
+        /* === VIDEO PROMO === */
+        .video-promo-section {
+            margin: 20px auto 40px;
+            padding: 25px;
+            background: rgba(26, 26, 26, 0.85);
+            border: 2px solid var(--primary-yellow);
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+        }
+        .video-promo-title {
+            font-family: var(--font-accent);
+            font-size: 2rem;
+            color: var(--primary-yellow);
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .video-frame {
+            position: relative;
+            padding-top: 56.25%;
+            border-radius: 15px;
+            overflow: hidden;
+            background: #000;
+        }
+        .video-frame iframe,
+        .video-frame video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        .video-promo-note {
+            text-align: center;
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            margin-top: 12px;
+        }
+
+        /* Lencana Lingkaran Melayang */
+        .circle-badge {
+            position: absolute;
+            border: 2px dashed #555;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+            font-family: var(--font-main); font-weight: 800; font-size: 0.9rem;
+            padding: 10px; width: 130px; height: 130px;
+            line-height: 1.2; text-transform: uppercase;
+        }
+        .badge-left {
+            top: 20px; left: 10%; color: var(--primary-yellow);
+            border-color: var(--primary-yellow); transform: rotate(-10deg);
+        }
+        .badge-right {
+            top: 20px; right: 10%; color: white;
+            border-color: white; transform: rotate(10deg);
+        }
+
+        /* === GRID KARTU PROMO === */
+        .promo-cards-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .promo-card {
+            background-color: rgba(26, 26, 26, 0.8);
+            border-radius: 20px;
+            padding: 30px 20px 20px;
+            position: relative;
+            display: flex; flex-direction: column;
+            text-align: center;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+        }
+
+        /* Border Kartu Khusus */
+        .card-pink { border: 2px solid var(--primary-pink); }
+        .card-yellow { border: 2px solid var(--primary-yellow); }
+
+        /* Lencana Pojok Kartu */
+        .card-badge {
+            position: absolute; top: -15px;
+            font-weight: 900; font-size: 1rem; color: white;
+            padding: 8px 25px; z-index: 10;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        .badge-new {
+            left: -15px; background-color: var(--primary-red); transform: rotate(-15deg); border-radius: 5px;
+        }
+        .badge-fav {
+            right: -15px; background-color: var(--primary-yellow); color: var(--bg-dark);
+            transform: rotate(15deg); border-radius: 50%; width: 80px; height: 80px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            line-height: 1.1; text-align: center; font-size: 0.8rem;
+        }
+
+        /* Konten Kartu */
+        .card-title-small { font-family: var(--font-hand); font-size: 2.5rem; color: white; line-height: 0.8; }
+        .card-title-large { font-family: var(--font-accent); font-size: 3rem; line-height: 1; margin-bottom: 10px; }
+        .title-pink { color: var(--primary-pink); }
+        .title-yellow { color: var(--primary-yellow); }
+        
+        .card-desc { font-size: 0.85rem; color: var(--text-light); margin-bottom: 20px; min-height: 40px; }
+        .card-desc span.pink { color: var(--primary-pink); font-weight: 700;}
+        .card-desc span.yellow { color: var(--primary-yellow); font-weight: 700;}
+
+        /* Tempat Menempelkan Foto / Image Placeholder */
+        .card-image-box {
+            width: 100%;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            /* Tambahan efek shadow agar menyatu */
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            background-color: #222; /* Warna dasar jika gambar belum diload */
+        }
+        .card-image-box img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover; /* Memastikan foto penuh tidak gepeng */
+        }
+
+        /* Area Harga Promo */
+        .price-area {
+            text-align: left;
+            position: relative;
+            display: inline-block;
+            margin: 0 auto;
+        }
+        .hanya-text {
+            background-color: white; color: var(--bg-dark);
+            font-weight: 900; font-size: 0.9rem; padding: 2px 15px;
+            transform: skewX(-15deg); display: inline-block; margin-bottom: -10px; position: relative; z-index: 2;
+        }
+        .price-new {
+            font-family: var(--font-accent); font-size: 3.5rem; line-height: 1;
+            display: inline-block; margin-right: 15px; text-shadow: 2px 2px 0px rgba(0,0,0,0.8);
+        }
+        .price-pink { color: var(--primary-pink); }
+        .price-yellow { color: var(--primary-yellow); }
+        
+        .price-old-wrapper { position: absolute; right: -50px; bottom: 10px; }
+        .price-old {
+            font-family: var(--font-hand); font-size: 2rem; color: var(--text-gray);
+            position: relative; display: inline-block;
+        }
+        /* Garis coret merah harga lama */
+        .price-old::after {
+            content: ''; position: absolute; left: 0; top: 50%;
+            width: 110%; height: 4px; background-color: var(--primary-red);
+            transform: rotate(-10deg);
+        }
+
+        /* === BANNER INFORMASI BAWAH === */
+        .info-bottom-section { margin-top: 40px; padding-top: 30px; border-top: 1px dashed #444; }
+        
+        .promo-alert {
+            display: flex; align-items: center; justify-content: center; gap: 40px; margin-bottom: 40px;
+        }
+        .alert-item { display: flex; align-items: center; gap: 15px; }
+        .alert-icon { font-size: 2.5rem; color: var(--primary-yellow); }
+        .alert-text h4 { color: var(--primary-yellow); font-weight: 800; font-size: 1.1rem; line-height: 1.2; }
+        .alert-text p { color: var(--text-light); font-size: 0.9rem; }
+        
+        .pesan-text { text-align: center; }
+        .pesan-text h3 { font-family: var(--font-accent); color: var(--primary-red); font-size: 1.8rem; line-height: 1.1; }
+        .pesan-text h3 span { color: white; display: block; }
+
+        .features-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+            border-top: 1px solid #333; padding-top: 30px;
+        }
+        .feature-box { display: flex; align-items: flex-start; gap: 15px; }
+        .feature-icon { font-size: 2rem; color: transparent; -webkit-text-stroke: 1px var(--primary-yellow); }
+        .feature-text h5 { color: var(--primary-yellow); font-weight: 800; font-size: 1rem; margin-bottom: 5px; }
+        .feature-text p { color: var(--text-light); font-size: 0.8rem; line-height: 1.4; }
+
+        /* === FOOTER MINIMALIS === */
+        footer {
+            background-color: #0a0a0a; padding: 20px 0; margin-top: 40px;
+            border-top: 1px solid #222;
+        }
+        .footer-flex { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;}
+        .footer-item { display: flex; align-items: center; gap: 10px; color: var(--text-light); font-size: 0.9rem; }
+        .footer-item i { font-size: 1.5rem; }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 992px) {
+            .promo-cards-container { grid-template-columns: 1fr; max-width: 500px; margin: 0 auto 50px; }
+            .badge-left, .badge-right { display: none; } /* Sembunyikan badge melayang di layar kecil */
+            .promo-title-main { font-size: 4rem; }
+            .features-grid { grid-template-columns: 1fr; text-align: center; }
+            .feature-box { flex-direction: column; align-items: center; text-align: center; }
+            .promo-alert { flex-direction: column; text-align: center; }
+            .footer-flex { flex-direction: column; justify-content: center; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container navbar">
+            <div class="logo">PISCOK<span>KOTA JALUR</span></div>
+            <ul class="nav-links">
+                <li><a href="index.html">BERANDA</a></li>
+                <li><a href="tentang.html">TENTANG KAMI</a></li>
+                <li><a href="menu.html">MENU</a></li>
+                <li><a href="promo.html" class="active">PROMO</a></li>
+                <li><a href="index.html#kontak">KONTAK</a></li>
+            </ul>
+            <button class="btn btn-red" onclick="toggleCart()"><i class="fas fa-shopping-cart"></i> PESAN SEKARANG</button>
+        </div>
+    </header>
+
+    <section class="promo-header-section container">
+        <div class="circle-badge badge-left">COKLAT<br>PREMIUM<br>MELELEH!</div>
+        <div class="circle-badge badge-right">PISANG<br>PILIHAN<br>BERKUALITAS!</div>
+
+        <div class="promo-title-wrapper">
+            <h1 class="promo-title-main">PROMO</h1>
+        </div>
+        <br>
+        <div class="promo-subtitle">SPESIAL UNTUK KAMU!</div>
+        <div class="promo-tagline">
+            <i class="fas fa-arrow-down" style="color: white; transform: rotate(45deg);"></i> 
+            Lezat, Manis, <span>Bikin Nagih!</span>
+            <i class="fas fa-check" style="color: var(--primary-yellow);"></i>
+        </div>
+    </section>
+
+    <section class="container video-promo-section">
+        <h3 class="video-promo-title" style="color: #EF4444;">PROMO GUESSS</h3>
+        <div class="video-frame">
+            <video controls playsinline poster="images/menu-tiramisu-coklat.png">
+                <source src="images/promosi1.mp4" type="video/mp4">
+                Browser Anda tidak mendukung pemutaran video.
+            </video>
+        </div>
+        <p class="video-promo-note">Video promo lokal dari folder images.</p>
+    </section>
+
+    <section class="container promo-cards-container">
+        
+        <div class="promo-card card-pink">
+            <div class="card-badge badge-new">NEW!</div>
+            
+            <div class="card-title-small">Piscok</div>
+            <h2 class="card-title-large title-pink">STRAWBERRY<br>TIRAMISU</h2>
+            <p class="card-desc">Perpaduan coklat premium, krim tiramisu lembut, taburan oreo dan <span class="pink">saus strawberry</span> manis yang segar!</p>
+            
+            <div class="card-image-box">
+        <img src="images/menu-tiramisu-coklat.png" alt="Piscok Strawberry">
+            </div>
+
+            <div class="price-area">
+                <div class="hanya-text">HANYA</div><br>
+                <div class="price-new price-pink">Rp 16.000</div>
+                <div class="price-old-wrapper">
+                    <span class="price-old">Rp 20.000</span>
+                </div>
+            </div>
+            <button class="btn-add-cart" onclick="addToCart('Piscok Strawberry', 16000, 'images/menu-tiramisu-coklat.png')"><i class="fas fa-plus"></i> KERANJANG</button>
+        </div>
+
+        <div class="promo-card card-yellow">
+            <div class="card-badge badge-fav"><i class="fas fa-thumbs-up" style="font-size: 1.5rem; margin-bottom: 5px;"></i>FAVORIT<br>BANGET!</div>
+            
+            <div class="card-title-small">Piscok</div>
+            <h2 class="card-title-large title-yellow">MIX</h2>
+            <p class="card-desc">Kombinasi dua rasa favorit dalam satu box! Coklat premium, taburan <span class="yellow">keju & kacang</span> yang bikin ketagihan!</p>
+            
+            <div class="card-image-box">
+                <img src="images/menu-mix.png" alt="Piscok Mix">
+            </div>
+
+            <div class="price-area">
+                <div class="hanya-text">HANYA</div><br>
+                <div class="price-new price-yellow">Rp 16.000</div>
+                <div class="price-old-wrapper">
+                    <span class="price-old">Rp 20.000</span>
+                </div>
+            </div>
+            <button class="btn-add-cart" onclick="addToCart('Piscok Mix', 16000, 'images/menu-mix.png')"><i class="fas fa-plus"></i> KERANJANG</button>
+        </div>
+
+    </section>
+
+    <section class="container info-bottom-section">
+        
+        <div class="promo-alert">
+            <div class="alert-item">
+                <i class="fa-regular fa-clock alert-icon"></i>
+                <div class="alert-text">
+                    <h4>PROMO TERBATAS!</h4>
+                    <p>Jangan sampai kehabisan!</p>
+                </div>
+            </div>
+            
+            <div class="pesan-text">
+                <h3>PESAN SEKARANG <span>BIKIN HARI LEBIH MANIS!</span></h3>
+            </div>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-box">
+                <img src="images/scooter.jpeg" alt="Scooter" style="width: 48px; height: 48px; object-fit: contain;">
+                <div class="feature-text">
+                    <h5>GRATIS ONGKIR</h5>
+                    <p>Untuk pemesanan minimal Rp 50.000</p>
+                </div>
+            </div>
+            <div class="feature-box">
+                <i class="fa-regular fa-clock feature-icon"></i>
+                <div class="feature-text">
+                    <h5>BUKA SETIAP HARI</h5>
+                    <p>10.00 - 22.00 WIB</p>
+                </div>
+            </div>
+            <div class="feature-box">
+                <i class="fa-regular fa-circle-check feature-icon"></i>
+                <div class="feature-text">
+                    <h5>BAHAN BERKUALITAS</h5>
+                    <p>Pisang pilihan, coklat premium & topping terbaik</p>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>KERANJANGKU</h3>
+            <button class="close-cart" onclick="toggleCart()">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItemsContainer"></div>
+        <div class="cart-footer">
+            <div class="cart-total"><span>TOTAL:</span><span id="cartTotalPrice">Rp 0</span></div>
+            <button class="btn-checkout" onclick="checkoutWA()"><i class="fab fa-whatsapp"></i> CHECKOUT WA</button>
+        </div>
+    </div>
+
+    <div class="floating-cart" onclick="toggleCart()">
+        <i class="fas fa-shopping-cart"></i>
+        <div class="cart-badge" id="cartBadgeCount">0</div>
+    </div>
+
+    <footer>
+        <div class="container footer-flex">
+            <div class="footer-item">
+                <i class="fab fa-instagram"></i> @piscok.kotajalur
+            </div>
+            <div class="footer-item" style="color: var(--primary-yellow);">
+                <i class="fab fa-whatsapp"></i> 0822 8487 2617
+            </div>
+            <div class="footer-item">
+                <i class="fas fa-map-marker-alt" style="color: var(--primary-red);"></i> Jl. uban sari, Kec. rumbai, kota.pekanbaru
+
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let cart = JSON.parse(localStorage.getItem('piscokCart')) || [];
+        function toggleCart(){ document.getElementById('cartSidebar').classList.toggle('active'); document.getElementById('cartOverlay').classList.toggle('active'); renderCart(); }
+        function formatRupiah(angka){ return 'Rp ' + angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
+        function saveCart(){ localStorage.setItem('piscokCart', JSON.stringify(cart)); }
+        function addToCart(name, price, imgUrl){ let existingItem = cart.find(item => item.name === name); if(existingItem) existingItem.qty += 1; else cart.push({name, price, qty: 1, img: imgUrl}); saveCart(); renderCart(); document.getElementById('cartBadgeCount').style.transform='scale(1.4)'; setTimeout(()=>document.getElementById('cartBadgeCount').style.transform='scale(1)', 180); }
+        function changeQty(index, delta){ cart[index].qty += delta; if(cart[index].qty <= 0) cart.splice(index, 1); saveCart(); renderCart(); }
+        function removeItem(index){ cart.splice(index,1); saveCart(); renderCart(); }
+        function renderCart(){ const container=document.getElementById('cartItemsContainer'); const totalElement=document.getElementById('cartTotalPrice'); const badge=document.getElementById('cartBadgeCount'); container.innerHTML=''; let total=0; let totalItems=0; if(cart.length===0){ container.innerHTML='<div style="text-align:center; color:#888; margin-top:40px;">Keranjang kosong.<br>Pilih promo favoritmu!</div>'; } else { cart.forEach((item,index)=>{ total += item.price*item.qty; totalItems += item.qty; container.innerHTML += `<div class="cart-item"><img src="${item.img}" alt="${item.name}" class="cart-item-img"><div class="cart-item-info"><div class="cart-item-title">${item.name}</div><div class="cart-item-price">${formatRupiah(item.price)}</div><div class="qty-controls"><button class="qty-btn" onclick="changeQty(${index}, -1)">-</button><span>${item.qty}</span><button class="qty-btn" onclick="changeQty(${index}, 1)">+</button></div></div><button class="remove-item" onclick="removeItem(${index})"><i class="fas fa-trash"></i></button></div>`;}); } totalElement.innerText = formatRupiah(total); badge.innerText = totalItems; }
+        function checkoutWA(){ if(cart.length===0) return alert('Keranjang masih kosong!'); let text='*Halo Admin Piscok Kota Jalur, saya mau order:*\n\n'; let total=0; cart.forEach((item,i)=>{ let sub=item.price*item.qty; total += sub; text += `${i+1}. ${item.name} (${item.qty}x) = ${formatRupiah(sub)}\n`; }); text += `\n*TOTAL: ${formatRupiah(total)}*\n\nMohon dibantu rekap ya!`; window.open(`https://wa.me/6282284872617?text=${encodeURIComponent(text)}`,'_blank'); }
+        document.addEventListener('DOMContentLoaded', renderCart);
+    </script>
+
+</body>
+</html>
