@@ -1,0 +1,1 @@
+# piscok_kota_jalurr
